@@ -1,33 +1,56 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as THREE from "three";
-import {Test} from "./Test/fnx"
+
 
 
 class App extends Component {
+  componentDidMount() {
+    // === THREE.JS CODE START ===
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+    camera.position.z = 5;
+    var animate = function () {
+      requestAnimationFrame( animate );
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render( scene, camera );
+    };
+    animate();
+    // === THREE.JS EXAMPLE CODE END ===
+  }
   render() {
-    return <Test value={"Fun"}></Test>
+    return (
+      <div />
+    )
   }
 }
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
 
 
-
-
-
-// import {Test} from "./Test/fnx"
 // import React, { Component } from "react";
+// import ReactDOM from "react-dom";
+// import * as THREE from "three";
+// import {Test} from "./Test/fnx"
 
 
 // class App extends Component {
 //   render() {
-//     return <Test value={"xinelagem"}></Test>
+//     return <Test value={"Fun"}></Test>
 //   }
 // }
-// export default App;
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
