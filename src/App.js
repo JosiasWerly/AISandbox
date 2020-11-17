@@ -17,7 +17,7 @@ class App extends Component {
     var animate = function () {
       requestAnimationFrame( animate );
       cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
+      cube.rotation.y -= 0.01;
       renderer.render( scene, camera );
     };
     animate();
@@ -31,5 +31,4 @@ class App extends Component {
 }
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
-
 export default App
