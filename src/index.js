@@ -1,20 +1,46 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as THREE from "three";
-import { Test } from "./Test/fnx"
 
 
+class jCube{
+  constructor() {      
+      this.geometry = new THREE.BoxGeometry( 1, 1, 1 );
+      this.material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );      
+      this.cube = new THREE.Mesh(this.geometry, this.material );
+      this.cube.translateX(Math.random()*5-2.5);
+      this.cube.translateY(Math.random()*5-2.5);
+  }
+}
 class App extends Component {
-  componentDidMount() {
-    this.h = <h1>f</h1>
-  }
-  render() {
-    const out = [];
-    for (let index = 0; index < 10; index++) {
-      out.push(<Test/>)
+  constructor(props) {
+    super(props);
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    this.camera.position.z = 5;
+    this.renderer = new THREE.WebGLRenderer();
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild(this.renderer.domElement );
+    
+
+    for (let index = 0; index < 10; index++) {      
+      var c = new jCube();
+      this.scene.add(c.cube);
     }
-    return <div> {out} </div>
+
+    this.draw();
   }
+
+  draw = () => {
+    requestAnimationFrame(this.draw);
+    this.renderer.render( this.scene, this.camera );
+  }
+
+  render() {
+    return (<div />);
+  }
+
+  
 }
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
